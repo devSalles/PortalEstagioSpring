@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "tb__empresa")
 @Getter
@@ -22,5 +24,11 @@ public class EmpresaModel {
 
     @Column(nullable = false, unique = true)
     private String cnpj;
+
+    @Column(nullable = false)
+    private String area;
+
+    @OneToMany(mappedBy = "empresaModel")
+    private List<VagaModel>vagaModel;
     
 }
