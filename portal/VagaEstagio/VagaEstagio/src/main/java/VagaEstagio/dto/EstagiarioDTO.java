@@ -1,5 +1,7 @@
 package VagaEstagio.dto;
 
+import VagaEstagio.model.EmpresaModel;
+import VagaEstagio.model.EstagiarioModel;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,4 +22,40 @@ public class EstagiarioDTO {
 
     @NotNull(message = "Periodo obrigatório")
     private int periodo;
+
+    public void setPeriodo(Integer periodo)
+    {
+        if(periodo<=0)
+        {
+            throw new IllegalArgumentException("Periodo inválido");
+        }
+    }
+
+    public EstagiarioModel toEstagio()
+    {
+        EstagiarioModel estagiarioModel = new EstagiarioModel();
+
+        estagiarioModel.setNome(this.nome);
+        estagiarioModel.setCurso(this.curso);
+        estagiarioModel.setPeriodo(this.periodo);
+        estagiarioModel.setVagaModel(this.toEstagio().getVagaModel());
+
+        return estagiarioModel;
+    }
+
+    public void fromEstagiario(EstagiarioModel estagiarioModel)
+    {
+        this.nome=estagiarioModel.getNome();
+        this.curso=estagiarioModel.getCurso();
+        this.periodo=estagiarioModel.getPeriodo();
+    }
+
+    public EstagiarioModel updateEstagio(EstagiarioModel estagiarioModel)
+    {
+        estagiarioModel.setNome(this.getNome());
+        estagiarioModel.setCurso(this.getCurso());
+        estagiarioModel.setPeriodo(this.getPeriodo());
+
+        return estagiarioModel;
+    }
 }
