@@ -19,7 +19,7 @@ public class EmpresaService {
         this.empresaRepository = empresaRepository;
     }
 
-    public EmpresaModel addNew(EmpresaDTO empresaDTO) throws Exception
+    public EmpresaModel addNew(EmpresaDTO empresaDTO) throws IllegalArgumentException
     {
         if(empresaDTO.getNome()==null || empresaDTO.getNome().isBlank())
         {
@@ -31,7 +31,7 @@ public class EmpresaService {
             throw new IllegalArgumentException("Campo Área inválido");
         }
 
-        if(empresaDTO.getCnpj()==null || empresaDTO.getCnpj().isBlank() || !empresaDTO.getCnpj().matches("^\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}$\n"))
+        if(empresaDTO.getCnpj()==null || empresaDTO.getCnpj().isBlank() || !empresaDTO.getCnpj().matches("^\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}$"))
         {
             throw new IllegalArgumentException("Campo CNPJ inválido");
         }
@@ -49,7 +49,20 @@ public class EmpresaService {
             throw new IdNotFoundException();
         }
 
-        //Fazer teste e dependendo do resultado adicionar o lançamento de exceções para validação de campos
+        if(empresaDTO.getNome()==null || empresaDTO.getNome().isBlank())
+        {
+            throw new IllegalArgumentException("Campo nome inválido");
+        }
+
+        if(empresaDTO.getArea()==null || empresaDTO.getArea().isBlank())
+        {
+            throw new IllegalArgumentException("Campo Área inválido");
+        }
+
+        if(empresaDTO.getCnpj()==null || empresaDTO.getCnpj().isBlank() || !empresaDTO.getCnpj().matches("^\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}$"))
+        {
+            throw new IllegalArgumentException("Campo CNPJ inválido");
+        }
 
         EmpresaModel empresaRecId=empresaID.get();
         empresaDTO.updateEmpresa(empresaRecId);

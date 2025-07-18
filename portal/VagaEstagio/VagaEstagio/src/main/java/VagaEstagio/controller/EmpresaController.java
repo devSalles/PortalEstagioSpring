@@ -20,17 +20,17 @@ public class EmpresaController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Object> addNew(EmpresaDTO empresaDTO) throws Exception
+    public ResponseEntity<Object> addNew(@RequestBody EmpresaDTO empresaDTO) throws IllegalArgumentException
     {
         this.empresaService.addNew(empresaDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(empresaDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateById(Long id, @RequestBody EmpresaDTO empresaDTO)
+    public ResponseEntity<Object> updateById(@PathVariable Long id, @RequestBody EmpresaDTO empresaDTO)
     {
-        this.empresaService.updateById(id,empresaDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(empresaDTO);
+        EmpresaModel empresaAtualizada = this.empresaService.updateById(id,empresaDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(empresaAtualizada);
     }
 
     @GetMapping("/todos")
@@ -41,22 +41,23 @@ public class EmpresaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getById(Long id)
+    public ResponseEntity<Object> getById(@PathVariable Long id)
     {
         EmpresaModel empresaID = this.empresaService.getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(empresaID);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object>deleteById(Long id)
+    public ResponseEntity<Object>deleteById(@PathVariable Long id)
     {
         Boolean empresaDel = this.empresaService.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).body(empresaDel);
     }
 
     @DeleteMapping("/todos")
-    public void deleteAll()
+    public ResponseEntity<Object> deleteAll()
     {
         this.empresaService.deleteAll();
+        return ResponseEntity.status(HttpStatus.OK).body("Todos os empregados foram excluidos");
     }
 }

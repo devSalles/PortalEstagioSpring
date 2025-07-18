@@ -34,12 +34,6 @@ public class EmpresaDTO {
         return empresaModel;
     }
 
-    public void fromEmpresa(EmpresaModel empresaModel)
-    {
-        this.nome= empresaModel.getNome();
-        this.area= empresaModel.getArea();
-        this.cnpj= empresaModel.getCnpj();
-    }
 
     public EmpresaModel updateEmpresa(EmpresaModel empresaModel)
     {
