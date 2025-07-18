@@ -39,7 +39,6 @@ public class EstagiarioDTO {
         estagiarioModel.setNome(this.nome);
         estagiarioModel.setCurso(this.curso);
         estagiarioModel.setPeriodo(this.periodo);
-        estagiarioModel.setVagaModel(this.toEstagio().getVagaModel());
 
         return estagiarioModel;
     }
