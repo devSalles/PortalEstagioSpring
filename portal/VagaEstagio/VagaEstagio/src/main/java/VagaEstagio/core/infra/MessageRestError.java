@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
+//Classe responsável por exibir mensagem formatada
 @Getter
 @Setter
 @NoArgsConstructor
