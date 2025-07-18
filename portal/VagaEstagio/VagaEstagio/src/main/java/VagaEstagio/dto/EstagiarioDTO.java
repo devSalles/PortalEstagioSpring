@@ -23,12 +23,13 @@ public class EstagiarioDTO {
     @NotNull(message = "Periodo obrigatório")
     private int periodo;
 
-    public void setPeriodo(Integer periodo)
+    public boolean setPeriodoInvalido(Integer periodo)
     {
         if(periodo<=0)
         {
             throw new IllegalArgumentException("Periodo inválido");
         }
+        return true;
     }
 
     public EstagiarioModel toEstagio()
@@ -43,12 +44,6 @@ public class EstagiarioDTO {
         return estagiarioModel;
     }
 
-    public void fromEstagiario(EstagiarioModel estagiarioModel)
-    {
-        this.nome=estagiarioModel.getNome();
-        this.curso=estagiarioModel.getCurso();
-        this.periodo=estagiarioModel.getPeriodo();
-    }
 
     public EstagiarioModel updateEstagio(EstagiarioModel estagiarioModel)
     {
