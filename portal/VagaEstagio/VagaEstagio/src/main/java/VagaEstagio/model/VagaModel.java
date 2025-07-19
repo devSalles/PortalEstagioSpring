@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "tb__vaga")
 @Getter
@@ -22,7 +24,7 @@ public class VagaModel {
     private String descricao;
 
     @Column(nullable = false)
-    private Integer bolsa;
+    private BigDecimal bolsa;
 
 
     @Column(nullable = false) @Enumerated(EnumType.STRING)
