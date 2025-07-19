@@ -22,15 +22,6 @@ public class EstagiarioDTO {
     @NotNull(message = "Periodo obrigatório")
     private int periodo;
 
-    public boolean setPeriodoInvalido(Integer periodo)
-    {
-        if(periodo<=0)
-        {
-            throw new IllegalArgumentException("Periodo inválido");
-        }
-        return true;
-    }
-
     public EstagiarioModel toEstagio()
     {
         EstagiarioModel estagiarioModel = new EstagiarioModel();

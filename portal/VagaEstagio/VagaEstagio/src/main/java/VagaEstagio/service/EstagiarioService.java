@@ -1,5 +1,6 @@
 package VagaEstagio.service;
 
+import VagaEstagio.core.exception.EmptyListException;
 import VagaEstagio.core.exception.IdNotFoundException;
 import VagaEstagio.dto.EstagiarioDTO;
 import VagaEstagio.model.EstagiarioModel;
@@ -30,7 +31,7 @@ public class EstagiarioService {
             throw new IllegalArgumentException("Campo curso inválido");
         }
 
-        if(estagiarioDTO.setPeriodoInvalido(estagiarioDTO.getPeriodo()))
+        if(estagiarioDTO.getPeriodo()<=0)
         {
             throw new IllegalArgumentException("Periodo inválido");
         }
@@ -59,7 +60,7 @@ public class EstagiarioService {
             throw new IllegalArgumentException("Campo curso inválido");
         }
 
-        if(estagiarioDTO.setPeriodoInvalido(estagiarioDTO.getPeriodo()))
+        if(estagiarioDTO.getPeriodo()<=0)
         {
             throw new IllegalArgumentException("Periodo inválido");
         }
@@ -80,7 +81,7 @@ public class EstagiarioService {
         List<EstagiarioModel>estagiarioAll=this.estagiarioRepository.findAll();
         if(estagiarioAll.isEmpty())
         {
-            throw new IdNotFoundException();
+            throw new EmptyListException();
         }
         return estagiarioAll;
     }
