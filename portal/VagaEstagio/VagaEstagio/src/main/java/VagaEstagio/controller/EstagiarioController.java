@@ -35,17 +35,17 @@ public class EstagiarioController {
     }
 
     @GetMapping("/todos")
-    public ResponseEntity<Object> getById(@PathVariable Long id)
+    public ResponseEntity<Object> getById()
     {
-        EstagiarioModel estagiarioID=this.estagiarioService.getById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(estagiarioID);
+        List<EstagiarioModel>estagiarioGetAll =this.estagiarioService.getAll();
+        return ResponseEntity.status(HttpStatus.OK).body(estagiarioGetAll);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getAll()
+    public ResponseEntity<Object> getAll(@PathVariable Long id)
     {
-        List<EstagiarioModel> estagiarioGetAll = this.estagiarioService.getAll();
-        return ResponseEntity.status(HttpStatus.OK).body(estagiarioGetAll);
+        EstagiarioModel estagiarioID = this.estagiarioService.getById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(estagiarioID);
     }
 
     @DeleteMapping("/{id}")
