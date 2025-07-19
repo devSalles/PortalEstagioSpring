@@ -70,7 +70,7 @@ public class EstagiarioService {
         return estagiarioModel;
     }
 
-    public EstagiarioModel getById(Long id, EstagiarioDTO estagiarioDTO)
+    public EstagiarioModel getById(Long id)
     {
         return this.estagiarioRepository.findById(id).orElseThrow(() -> new IdNotFoundException());
     }

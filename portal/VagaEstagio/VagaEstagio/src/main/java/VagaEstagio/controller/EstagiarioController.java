@@ -2,10 +2,8 @@ package VagaEstagio.controller;
 
 import VagaEstagio.dto.EstagiarioDTO;
 import VagaEstagio.model.EstagiarioModel;
-import VagaEstagio.repository.EstagiarioRepository;
 import VagaEstagio.service.EstagiarioService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,9 +35,9 @@ public class EstagiarioController {
     }
 
     @GetMapping("/todos")
-    public ResponseEntity<Object> getById(@PathVariable Long id, EstagiarioDTO estagiarioDTO)
+    public ResponseEntity<Object> getById(@PathVariable Long id)
     {
-        EstagiarioModel estagiarioID=this.estagiarioService.getById(id,estagiarioDTO);
+        EstagiarioModel estagiarioID=this.estagiarioService.getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(estagiarioID);
     }
 

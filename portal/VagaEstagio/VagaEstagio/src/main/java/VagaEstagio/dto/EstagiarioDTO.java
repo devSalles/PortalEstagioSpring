@@ -1,6 +1,5 @@
 package VagaEstagio.dto;
 
-import VagaEstagio.model.EmpresaModel;
 import VagaEstagio.model.EstagiarioModel;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
