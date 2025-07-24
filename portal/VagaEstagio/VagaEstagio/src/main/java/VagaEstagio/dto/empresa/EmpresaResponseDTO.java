@@ -1,4 +1,4 @@
-package VagaEstagio.dto;
+package VagaEstagio.dto.empresa;
 
 import VagaEstagio.model.EmpresaModel;
 
@@ -7,7 +7,7 @@ public record EmpresaResponseDTO(
         String cnpj,
         String area
 ) {
-    public static EmpresaResponseDTO toEmpresaResponseDTO(EmpresaModel model)
+    public static EmpresaResponseDTO fromEmpresaResponseDTO(EmpresaModel model)
     {
         return new EmpresaResponseDTO(model.getNome(), model.getCnpj(), model.getArea());
     }

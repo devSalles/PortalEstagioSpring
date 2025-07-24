@@ -1,4 +1,4 @@
-package VagaEstagio.dto;
+package VagaEstagio.dto.empresa;
 
 import VagaEstagio.model.EmpresaModel;
 import jakarta.validation.constraints.NotNull;

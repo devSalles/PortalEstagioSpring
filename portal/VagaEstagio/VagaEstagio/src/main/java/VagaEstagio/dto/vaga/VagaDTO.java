@@ -1,4 +1,4 @@
-package VagaEstagio.dto;
+package VagaEstagio.dto.vaga;
 
 import VagaEstagio.enums.VagaStatus;
 import VagaEstagio.model.EmpresaModel;
