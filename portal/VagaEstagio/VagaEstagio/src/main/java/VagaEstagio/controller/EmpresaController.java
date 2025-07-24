@@ -1,13 +1,11 @@
 package VagaEstagio.controller;
 
-import VagaEstagio.dto.EmpresaDTO;
+import VagaEstagio.dto.empresa.EmpresaDTO;
 import VagaEstagio.model.EmpresaModel;
 import VagaEstagio.service.EmpresaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/empresa")
@@ -33,11 +31,10 @@ public class EmpresaController {
         return ResponseEntity.status(HttpStatus.OK).body(empresaAtualizada);
     }
 
-    @GetMapping("/todos")
+    @GetMapping("/reportAll")
     public ResponseEntity<Object> getAll()
     {
-        List<EmpresaModel> empresaAll = this.empresaService.getAll();
-        return ResponseEntity.status(HttpStatus.OK).body(empresaAll);
+        return ResponseEntity.status(HttpStatus.OK).body(this.empresaService.getAll());
     }
 
     @GetMapping("/{id}")
@@ -47,17 +44,17 @@ public class EmpresaController {
         return ResponseEntity.status(HttpStatus.OK).body(empresaID);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Object>deleteById(@PathVariable Long id)
     {
         Boolean empresaDel = this.empresaService.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).body(empresaDel);
     }
 
-    @DeleteMapping("/todos")
+    @DeleteMapping("/deleteAll")
     public ResponseEntity<Object> deleteAll()
     {
         this.empresaService.deleteAll();
-        return ResponseEntity.status(HttpStatus.OK).body("Todos os empregados foram excluidos");
+        return ResponseEntity.status(HttpStatus.OK).body("Todos os empregados foram excluídos");
     }
 }

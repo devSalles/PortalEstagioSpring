@@ -1,6 +1,6 @@
 package VagaEstagio.controller;
 
-import VagaEstagio.dto.EstagiarioDTO;
+import VagaEstagio.dto.estagiario.EstagiarioDTO;
 import VagaEstagio.model.EstagiarioModel;
 import VagaEstagio.service.EstagiarioService;
 import org.springframework.http.HttpStatus;
