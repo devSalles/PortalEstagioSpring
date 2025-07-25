@@ -2,7 +2,7 @@ package VagaEstagio.service;
 
 import VagaEstagio.core.exception.EmptyListException;
 import VagaEstagio.core.exception.IdNotFoundException;
-import VagaEstagio.dto.EmpresaDTO;
+import VagaEstagio.dto.empresa.EmpresaDTO;
 import VagaEstagio.model.EmpresaModel;
 import VagaEstagio.repository.EmpresaRepository;
 import org.springframework.stereotype.Service;

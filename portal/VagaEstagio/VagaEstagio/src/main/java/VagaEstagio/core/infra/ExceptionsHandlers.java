@@ -12,9 +12,9 @@ public class ExceptionsHandlers {
 
     //Tratamento de exceções globais
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<MessageRestError> globalHandlersException(Exception exception)
+    public ResponseEntity<MessageRestError> globalHandlersException()
     {
-        MessageRestError messageRestError= new MessageRestError(HttpStatus.INTERNAL_SERVER_ERROR,exception.getMessage());
+        MessageRestError messageRestError= new MessageRestError(HttpStatus.INTERNAL_SERVER_ERROR,"Erro interno, tente novamente mais tarde");
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(messageRestError);
     }
 
