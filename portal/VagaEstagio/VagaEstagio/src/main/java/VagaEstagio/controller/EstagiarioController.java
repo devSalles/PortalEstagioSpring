@@ -27,35 +27,35 @@ public class EstagiarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(estagiarioCriado);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("update/{id}")
     public ResponseEntity<Object> updateById(@PathVariable Long id, @RequestBody EstagiarioDTO estagiarioDTO)
     {
         EstagiarioModel estagiarioAtualizado=this.estagiarioService.updateById(id,estagiarioDTO);
         return ResponseEntity.status(HttpStatus.OK).body(estagiarioAtualizado);
     }
 
-    @GetMapping("/todos")
+    @GetMapping("/reportAll")
     public ResponseEntity<Object> getById()
     {
         List<EstagiarioModel>estagiarioGetAll =this.estagiarioService.getAll();
         return ResponseEntity.status(HttpStatus.OK).body(estagiarioGetAll);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("reportById/{id}")
     public ResponseEntity<Object> getAll(@PathVariable Long id)
     {
         EstagiarioModel estagiarioID = this.estagiarioService.getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(estagiarioID);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("delete/{id}")
     public ResponseEntity<Object> deleteById(@PathVariable Long id)
     {
         Boolean estagiarioDel = this.estagiarioService.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).body(estagiarioDel);
     }
 
-    @DeleteMapping("/todos")
+    @DeleteMapping("/deleteAll")
     public ResponseEntity<Object> deleteAll()
     {
         this.estagiarioService.deleteAll();

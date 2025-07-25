@@ -1,6 +1,7 @@
 package VagaEstagio.model;
 
 import VagaEstagio.enums.VagaStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,6 +33,7 @@ public class VagaModel {
 
     @ManyToOne
     @JoinColumn(name = "empresa_id")
+    @JsonBackReference
     private EmpresaModel empresaModel;
 
     @OneToOne

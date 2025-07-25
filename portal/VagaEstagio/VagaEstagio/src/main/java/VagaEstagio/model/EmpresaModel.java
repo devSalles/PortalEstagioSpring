@@ -1,5 +1,6 @@
 package VagaEstagio.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,6 +30,7 @@ public class EmpresaModel {
     private String area;
 
     @OneToMany(mappedBy = "empresaModel")
+    @JsonManagedReference
     private List<VagaModel>vagaModel;
     
 }
