@@ -34,12 +34,11 @@ public class EmpresaDTO {
         return empresaModel;
     }
 
-
     public EmpresaModel updateEmpresa(EmpresaModel empresaModel)
     {
         empresaModel.setNome(this.getNome());
         empresaModel.setArea(this.getArea());
-    
+
         return empresaModel;
     }
 }

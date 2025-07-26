@@ -1,5 +1,6 @@
 package VagaEstagio.core.infra;
 
+import VagaEstagio.core.exception.CnpjDuplicateException;
 import VagaEstagio.core.exception.EmptyListException;
 import VagaEstagio.core.exception.IdNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,14 @@ public class ExceptionsHandlers {
     {
         MessageRestError messageRestError= new MessageRestError(HttpStatus.INTERNAL_SERVER_ERROR,"Erro interno, tente novamente mais tarde");
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(messageRestError);
+    }
+
+    //Exceção para CNPJ já cadastrado 
+    @ExceptionHandler(CnpjDuplicateException.class)
+    public ResponseEntity<MessageRestError> cnpjHanlderException(CnpjDuplicateException ex)
+    {
+        MessageRestError messageRestError = new MessageRestError(HttpStatus.CONFLICT, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(messageRestError);
     }
 
     //Tratamento de exceções para validação de dados
