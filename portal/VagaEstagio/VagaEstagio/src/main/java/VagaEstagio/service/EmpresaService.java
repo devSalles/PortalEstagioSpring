@@ -3,6 +3,7 @@ package VagaEstagio.service;
 import VagaEstagio.core.exception.EmptyListException;
 import VagaEstagio.core.exception.IdNotFoundException;
 import VagaEstagio.dto.empresa.EmpresaDTO;
+import VagaEstagio.dto.empresa.EmpresaResponseDTO;
 import VagaEstagio.model.EmpresaModel;
 import VagaEstagio.repository.EmpresaRepository;
 import org.springframework.stereotype.Service;
@@ -59,30 +60,26 @@ public class EmpresaService {
             throw new IllegalArgumentException("Campo Área inválido");
         }
 
-        if(empresaDTO.getCnpj()==null || empresaDTO.getCnpj().isBlank() || !empresaDTO.getCnpj().matches("^\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}$"))
-        {
-            throw new IllegalArgumentException("Campo CNPJ inválido");
-        }
-
         EmpresaModel empresaRecId=empresaID.get();
         empresaDTO.updateEmpresa(empresaRecId);
         this.empresaRepository.save(empresaRecId);
         return empresaRecId;
     }
 
-    public List<EmpresaModel> getAll()
+    public List<EmpresaResponseDTO> getAll()
     {
         List<EmpresaModel>empresa=this.empresaRepository.findAll();
         if(empresa.isEmpty())
         {
             throw new EmptyListException();
         }
-        return empresa;
+        return empresa.stream().map(EmpresaResponseDTO::fromEmpresaResponseDTO).toList();
     }
 
-    public EmpresaModel getById(Long id)
+    public EmpresaResponseDTO getById(Long id)
     {
-        return this.empresaRepository.findById(id).orElseThrow(() -> new IdNotFoundException());
+        EmpresaModel empresa = this.empresaRepository.findById(id).orElseThrow(() -> new IdNotFoundException());
+        return EmpresaResponseDTO.fromEmpresaResponseDTO(empresa);
     }
 
     public Boolean deleteById(Long id)

@@ -3,6 +3,7 @@ package VagaEstagio.service;
 import VagaEstagio.core.exception.EmptyListException;
 import VagaEstagio.core.exception.IdNotFoundException;
 import VagaEstagio.dto.estagiario.EstagiarioDTO;
+import VagaEstagio.dto.estagiario.EstagiarioResponseDTO;
 import VagaEstagio.model.EstagiarioModel;
 import VagaEstagio.repository.EstagiarioRepository;
 import org.springframework.stereotype.Service;
@@ -71,19 +72,20 @@ public class EstagiarioService {
         return estagiarioModel;
     }
 
-    public EstagiarioModel getById(Long id)
-    {
-        return this.estagiarioRepository.findById(id).orElseThrow(() -> new IdNotFoundException());
-    }
-
-    public List<EstagiarioModel> getAll()
+    public List<EstagiarioResponseDTO> getAll()
     {
         List<EstagiarioModel>estagiarioAll=this.estagiarioRepository.findAll();
         if(estagiarioAll.isEmpty())
         {
             throw new EmptyListException();
         }
-        return estagiarioAll;
+        return estagiarioAll.stream().map(EstagiarioResponseDTO::fromEstagiarioResponseDTO).toList();
+    }
+
+    public EstagiarioResponseDTO getById(Long id)
+    {
+        EstagiarioModel estagiarioID = this.estagiarioRepository.findById(id).orElseThrow(() -> new IdNotFoundException());
+        return EstagiarioResponseDTO.fromEstagiarioResponseDTO(estagiarioID);
     }
 
     public Boolean deleteById(Long id)

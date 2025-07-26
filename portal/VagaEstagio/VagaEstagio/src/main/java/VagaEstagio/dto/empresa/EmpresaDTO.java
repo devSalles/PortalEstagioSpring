@@ -39,8 +39,7 @@ public class EmpresaDTO {
     {
         empresaModel.setNome(this.getNome());
         empresaModel.setArea(this.getArea());
-        empresaModel.setCnpj(this.getCnpj());
-
+    
         return empresaModel;
     }
 }

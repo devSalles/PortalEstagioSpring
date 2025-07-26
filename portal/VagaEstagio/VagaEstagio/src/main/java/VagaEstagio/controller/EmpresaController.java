@@ -1,6 +1,7 @@
 package VagaEstagio.controller;
 
 import VagaEstagio.dto.empresa.EmpresaDTO;
+import VagaEstagio.dto.empresa.EmpresaResponseDTO;
 import VagaEstagio.model.EmpresaModel;
 import VagaEstagio.service.EmpresaService;
 import org.springframework.http.HttpStatus;
@@ -40,7 +41,7 @@ public class EmpresaController {
     @GetMapping("getById/{id}")
     public ResponseEntity<Object> getById(@PathVariable Long id)
     {
-        EmpresaModel empresaID = this.empresaService.getById(id);
+        EmpresaResponseDTO empresaID = this.empresaService.getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(empresaID);
     }
 

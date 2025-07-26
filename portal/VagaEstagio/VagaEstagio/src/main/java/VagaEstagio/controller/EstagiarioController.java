@@ -1,6 +1,7 @@
 package VagaEstagio.controller;
 
 import VagaEstagio.dto.estagiario.EstagiarioDTO;
+import VagaEstagio.dto.estagiario.EstagiarioResponseDTO;
 import VagaEstagio.model.EstagiarioModel;
 import VagaEstagio.service.EstagiarioService;
 import org.springframework.http.HttpStatus;
@@ -37,14 +38,14 @@ public class EstagiarioController {
     @GetMapping("/reportAll")
     public ResponseEntity<Object> getById()
     {
-        List<EstagiarioModel>estagiarioGetAll =this.estagiarioService.getAll();
+        List<EstagiarioResponseDTO>estagiarioGetAll =this.estagiarioService.getAll();
         return ResponseEntity.status(HttpStatus.OK).body(estagiarioGetAll);
     }
 
     @GetMapping("reportById/{id}")
     public ResponseEntity<Object> getAll(@PathVariable Long id)
     {
-        EstagiarioModel estagiarioID = this.estagiarioService.getById(id);
+        EstagiarioResponseDTO estagiarioID = this.estagiarioService.getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(estagiarioID);
     }
 
