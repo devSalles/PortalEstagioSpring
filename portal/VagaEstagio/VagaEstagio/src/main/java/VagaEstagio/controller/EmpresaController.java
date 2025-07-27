@@ -25,7 +25,7 @@ public class EmpresaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(empresaDTO);
     }
 
-    @PutMapping("update/{id}")
+    @PutMapping("/edit/{id}")
     public ResponseEntity<Object> updateById(@PathVariable Long id, @RequestBody EmpresaDTO empresaDTO)
     {
         EmpresaModel empresaAtualizada = this.empresaService.updateById(id,empresaDTO);
@@ -38,7 +38,7 @@ public class EmpresaController {
         return ResponseEntity.status(HttpStatus.OK).body(this.empresaService.getAll());
     }
 
-    @GetMapping("getById/{id}")
+    @GetMapping("/report/{id}")
     public ResponseEntity<Object> getById(@PathVariable Long id)
     {
         EmpresaResponseDTO empresaID = this.empresaService.getById(id);

@@ -28,7 +28,7 @@ public class EstagiarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(estagiarioCriado);
     }
 
-    @PutMapping("update/{id}")
+    @PutMapping("/edit/{id}")
     public ResponseEntity<Object> updateById(@PathVariable Long id, @RequestBody EstagiarioDTO estagiarioDTO)
     {
         EstagiarioModel estagiarioAtualizado=this.estagiarioService.updateById(id,estagiarioDTO);
@@ -42,7 +42,7 @@ public class EstagiarioController {
         return ResponseEntity.status(HttpStatus.OK).body(estagiarioGetAll);
     }
 
-    @GetMapping("/reportById/{id}")
+    @GetMapping("/report/{id}")
     public ResponseEntity<Object> getAll(@PathVariable Long id)
     {
         EstagiarioResponseDTO estagiarioID = this.estagiarioService.getById(id);
