@@ -11,17 +11,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ExceptionsHandlers {
 
-    //Tratamento de exceções globais
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<MessageRestError> globalHandlersException()
-    {
-        MessageRestError messageRestError= new MessageRestError(HttpStatus.INTERNAL_SERVER_ERROR,"Erro interno, tente novamente mais tarde");
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(messageRestError);
-    }
-
-    //Exceção para CNPJ já cadastrado 
+    //Exceção para CNPJ já cadastrado
     @ExceptionHandler(CnpjDuplicateException.class)
-    public ResponseEntity<MessageRestError> cnpjHanlderException(CnpjDuplicateException ex)
+    public ResponseEntity<MessageRestError> cnpjHandlerException(CnpjDuplicateException ex)
     {
         MessageRestError messageRestError = new MessageRestError(HttpStatus.CONFLICT, ex.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(messageRestError);
@@ -49,5 +41,12 @@ public class ExceptionsHandlers {
     {
         MessageRestError messageRestError = new MessageRestError(HttpStatus.NOT_FOUND,ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(messageRestError);
+    }
+    //Tratamento de exceções globais
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<MessageRestError> globalHandlersException()
+    {
+        MessageRestError messageRestError= new MessageRestError(HttpStatus.INTERNAL_SERVER_ERROR,"Erro interno, tente novamente mais tarde");
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(messageRestError);
     }
 }

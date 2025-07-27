@@ -9,5 +9,7 @@ import java.util.List;
 @Repository
 public interface EmpresaRepository extends JpaRepository<EmpresaModel,Long> {
 
+    boolean existsByCnpj(String cnpj);
+
     List<EmpresaModel>findByVagaModel_Id(Long id);
 }

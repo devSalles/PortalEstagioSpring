@@ -42,14 +42,14 @@ public class EstagiarioController {
         return ResponseEntity.status(HttpStatus.OK).body(estagiarioGetAll);
     }
 
-    @GetMapping("reportById/{id}")
+    @GetMapping("/reportById/{id}")
     public ResponseEntity<Object> getAll(@PathVariable Long id)
     {
         EstagiarioResponseDTO estagiarioID = this.estagiarioService.getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(estagiarioID);
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Object> deleteById(@PathVariable Long id)
     {
         Boolean estagiarioDel = this.estagiarioService.deleteById(id);

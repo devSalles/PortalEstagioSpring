@@ -1,6 +1,5 @@
 package VagaEstagio.core.infra;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,14 +11,13 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class MessageRestError {
 
     private HttpStatus status;
     private String message;
     private LocalDateTime timeStamp;
 
-    public  MessageRestError(HttpStatus status,String message)
+    public MessageRestError(HttpStatus status,String message)
     {
         this.status=status;
         this.message=message;
