@@ -10,6 +10,7 @@ import VagaEstagio.model.VagaModel;
 import VagaEstagio.repository.EmpresaRepository;
 import VagaEstagio.repository.EstagiarioRepository;
 import VagaEstagio.repository.VagaRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -151,6 +152,7 @@ public class VagaService {
         return VagaResponseDTO.fromVaga(vaga);
     }
 
+    @Transactional
     public Boolean deleteById(Long id)
     {
         VagaModel vagaModel = this.vagaRepository.findById(id).orElseThrow(IdNotFoundException::new);
@@ -163,9 +165,9 @@ public class VagaService {
         }
 
         EmpresaModel empresa=vagaModel.getEmpresaModel();
-        if(empresa!= null && empresa.getVagaModel() != null)
+        if(empresa != null && empresa.getVagaModel() != null)
         {
-            empresa.getVagaModel().removeIf(vaga -> vaga.getVaga().equals(id));
+            empresa.getVagaModel().removeIf(vaga -> vaga.getId().equals(id));
             this.empresaRepository.save(empresa);
         }
 
