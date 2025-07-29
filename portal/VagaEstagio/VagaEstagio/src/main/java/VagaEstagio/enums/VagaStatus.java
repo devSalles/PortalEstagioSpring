@@ -1,10 +1,7 @@
 package VagaEstagio.enums;
 
 public enum VagaStatus {
-    REPROVADO,
-    PREENCHIDO,
-    APROVADO,
+    OCUPADA,
     CANCELADA,
-    SELECAO,
     ABERTA
 }

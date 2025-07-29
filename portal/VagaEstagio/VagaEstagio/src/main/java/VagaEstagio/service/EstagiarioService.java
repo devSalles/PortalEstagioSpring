@@ -102,6 +102,7 @@ public class EstagiarioService {
         return true;
     }
 
+    //Verificar esse metodo no postman
     public void deleteAll()
     {
         this.estagiarioRepository.deleteAll();

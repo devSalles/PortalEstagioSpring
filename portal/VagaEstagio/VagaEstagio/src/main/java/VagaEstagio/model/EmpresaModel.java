@@ -29,7 +29,7 @@ public class EmpresaModel {
     @Column(nullable = false)
     private String area;
 
-    @OneToMany(mappedBy = "empresaModel")
+    @OneToMany(mappedBy = "empresaModel", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<VagaModel>vagaModel;
     

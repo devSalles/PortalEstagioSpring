@@ -10,4 +10,9 @@ public class VagaEstagioApplication {
 		SpringApplication.run(VagaEstagioApplication.class, args);
 	}
 
+
+    //Refatorar o CRUD de acordo com a regra de negócio (Verificar GPT)
+    //Testar o CRUD de acordo com as novas alterações feita
+    // Consertar metodo de remoção de vaga (Não esta removendo no banco)
+
 }

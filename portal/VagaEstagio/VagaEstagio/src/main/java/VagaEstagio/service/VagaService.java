@@ -155,19 +155,19 @@ public class VagaService {
     {
         VagaModel vagaModel = this.vagaRepository.findById(id).orElseThrow(IdNotFoundException::new);
 
-        List<EstagiarioModel>estagiarioID=this.estagiarioRepository.findByVagaModel_Id(id);
-        for (EstagiarioModel estagiario:estagiarioID)
+        if(vagaModel.getEstagiarioModel()!= null)
         {
-            estagiario.setVagaModel(null);
+            EstagiarioModel estagiarioModel = vagaModel.getEstagiarioModel();
+            estagiarioModel.setVagaModel(null);
+            this.estagiarioRepository.save(estagiarioModel);
         }
-        this.estagiarioRepository.saveAll(estagiarioID);
 
-        List<EmpresaModel>empresaID=this.empresaRepository.findByVagaModel_Id(id);
-        for (EmpresaModel model:empresaID)
+        EmpresaModel empresa=vagaModel.getEmpresaModel();
+        if(empresa!= null && empresa.getVagaModel() != null)
         {
-            model.setVagaModel(null);
+            empresa.getVagaModel().removeIf(vaga -> vaga.getVaga().equals(id));
+            this.empresaRepository.save(empresa);
         }
-        this.empresaRepository.saveAll(empresaID);
 
         this.vagaRepository.delete(vagaModel);
         return true;

@@ -32,11 +32,11 @@ public class VagaModel {
     private VagaStatus vaga;
 
     @ManyToOne
-    @JoinColumn(name = "empresa_id")
+    @JoinColumn(name = "empresa_id",nullable = true)
     @JsonBackReference
     private EmpresaModel empresaModel;
 
     @OneToOne
-    @JoinColumn(name = "estagiario_id")
+    @JoinColumn(name = "estagiario_id",nullable = true)
     private EstagiarioModel estagiarioModel;
 }

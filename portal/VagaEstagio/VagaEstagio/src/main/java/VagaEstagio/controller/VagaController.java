@@ -47,7 +47,7 @@ public class VagaController {
         return ResponseEntity.ok().body(vagaModel);
     }
 
-    @DeleteMapping("/remove/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Object> removeById(@PathVariable Long id)
     {
         boolean remove = this.vagaService.deleteById(id);
