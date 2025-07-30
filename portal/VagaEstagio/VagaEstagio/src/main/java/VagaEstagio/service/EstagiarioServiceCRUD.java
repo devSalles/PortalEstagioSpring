@@ -41,9 +41,9 @@ public class EstagiarioServiceCRUD {
         return estagiarioSalvar;
     }
 
-    public EstagiarioModel updateById(Long id, EstagiarioDTO estagiarioDTO)
+    public EstagiarioModel updateById(Long id, EstagiarioDTO estagiarioDTO) throws IllegalArgumentException
     {
-        EstagiarioModel estagiarioID=this.estagiarioRepository.findById(id).orElseThrow(() -> new IdNotFoundException());
+        EstagiarioModel estagiarioID=this.estagiarioRepository.findById(id).orElseThrow(IdNotFoundException::new);
 
         if(estagiarioDTO.getNome()==null || estagiarioDTO.getNome().isBlank())
         {
@@ -77,13 +77,13 @@ public class EstagiarioServiceCRUD {
 
     public EstagiarioResponseDTO getById(Long id)
     {
-        EstagiarioModel estagiarioID = this.estagiarioRepository.findById(id).orElseThrow(() -> new IdNotFoundException());
+        EstagiarioModel estagiarioID = this.estagiarioRepository.findById(id).orElseThrow(IdNotFoundException::new);
         return EstagiarioResponseDTO.fromEstagiarioResponseDTO(estagiarioID);
     }
 
     public Boolean deleteById(Long id)
     {
-        EstagiarioModel estagiarioID=this.estagiarioRepository.findById(id).orElseThrow(() -> new IdNotFoundException());
+        EstagiarioModel estagiarioID=this.estagiarioRepository.findById(id).orElseThrow(IdNotFoundException::new);
 
         if(estagiarioID.getVagaModel() != null)
         {
@@ -99,7 +99,6 @@ public class EstagiarioServiceCRUD {
         return true;
     }
 
-    //Verificar esse metodo no postman
     public void deleteAll()
     {
         this.estagiarioRepository.deleteAll();

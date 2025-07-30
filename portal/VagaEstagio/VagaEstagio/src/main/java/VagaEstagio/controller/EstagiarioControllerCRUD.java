@@ -22,14 +22,14 @@ public class EstagiarioControllerCRUD {
 
 
     @PostMapping("/add")
-    public ResponseEntity<Object> addNew(@RequestBody EstagiarioDTO estagiarioDTO)
+    public ResponseEntity<Object> addNew(@RequestBody EstagiarioDTO estagiarioDTO) throws IllegalArgumentException
     {
         EstagiarioModel estagiarioCriado = this.estagiarioServiceCRUD.addNew(estagiarioDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(estagiarioCriado);
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<Object> updateById(@PathVariable Long id, @RequestBody EstagiarioDTO estagiarioDTO)
+    public ResponseEntity<Object> updateById(@PathVariable Long id, @RequestBody EstagiarioDTO estagiarioDTO) throws IllegalArgumentException
     {
         EstagiarioModel estagiarioAtualizado=this.estagiarioServiceCRUD.updateById(id,estagiarioDTO);
         return ResponseEntity.status(HttpStatus.OK).body(estagiarioAtualizado);

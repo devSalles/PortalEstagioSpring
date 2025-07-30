@@ -54,7 +54,7 @@ public class EmpresaServiceCRUD {
 
     public EmpresaModel updateById(Long id, EmpresaDTO empresaDTO)
     {
-        EmpresaModel empresaID = this.empresaRepository.findById(id).orElseThrow(() -> new IdNotFoundException());
+        EmpresaModel empresaID = this.empresaRepository.findById(id).orElseThrow(IdNotFoundException::new);
 
         if (empresaDTO.getNome() == null || empresaDTO.getNome().isBlank()) {
             throw new IllegalArgumentException("Campo nome inválido");
@@ -80,13 +80,13 @@ public class EmpresaServiceCRUD {
 
     public EmpresaResponseDTO getById(Long id)
     {
-        EmpresaModel empresa = this.empresaRepository.findById(id).orElseThrow(() -> new IdNotFoundException());
+        EmpresaModel empresa = this.empresaRepository.findById(id).orElseThrow(IdNotFoundException::new);
         return EmpresaResponseDTO.fromEmpresaResponseDTO(empresa);
     }
 
     public Boolean deleteById(Long id)
     {
-        EmpresaModel empresaID = this.empresaRepository.findById(id).orElseThrow(() -> new IdNotFoundException());
+        EmpresaModel empresaID = this.empresaRepository.findById(id).orElseThrow(IdNotFoundException::new);
 
         if (empresaID.getVagaModel() != null || !empresaID.getVagaModel().isEmpty()) {
             for (VagaModel vaga : empresaID.getVagaModel()) {
@@ -105,7 +105,6 @@ public class EmpresaServiceCRUD {
         return true;
     }
 
-    //Verificar esse metodo no postman
     public void deleteAll() {
         this.empresaRepository.deleteAll();
     }

@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class VagaServiceCRUD {
@@ -83,11 +82,7 @@ public class VagaServiceCRUD {
 
     public VagaModel updateById(Long id, VagaDTO vagaDTO)
     {
-        Optional<VagaModel>vagaID = this.vagaRepository.findById(id);
-        if(vagaID.isEmpty())
-        {
-            throw new IdNotFoundException();
-        }
+        VagaModel vagaID = this.vagaRepository.findById(id).orElseThrow(IdNotFoundException::new);
 
         if(vagaDTO.getVaga() == null)
         {
@@ -119,7 +114,7 @@ public class VagaServiceCRUD {
         }
         EmpresaModel empresaID = this.empresaRepository.findById(vagaDTO.getEmpresaModel().getId()).orElseThrow(() -> new IdNotFoundException("ID de empresa não encontrado"));
 
-        VagaModel vagaUpdate=vagaDTO.updateVaga(vagaID.get());
+        VagaModel vagaUpdate=vagaDTO.updateVaga(vagaID);
         vagaDTO.setEmpresaModel(empresaID);
         vagaDTO.setEstagiarioModel(estagiarioID);
 
