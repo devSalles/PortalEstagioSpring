@@ -170,21 +170,23 @@ public class VagaServiceCRUD {
         {
             throw new EmptyListException();
         }
-        for (VagaModel vagaModel:vagaDel)
-        {
-            List<EmpresaModel>empresa=this.empresaRepository.findByVagaModel_Id(vagaModel.getId());
-            for(EmpresaModel empresaModel:empresa)
-            {
-                empresaModel.setVagaModel(null);
-            }
-            this.empresaRepository.saveAll(empresa);
 
-            List<EstagiarioModel>estagiario=this.estagiarioRepository.findByVagaModel_Id(vagaModel.getId());
-            for(EstagiarioModel estagiarioModel:estagiario)
+        for(VagaModel vaga:vagaDel)
+        {
+            if(vaga.getEstagiarioModel() != null)
             {
+                EstagiarioModel estagiarioModel=vaga.getEstagiarioModel();
                 estagiarioModel.setVagaModel(null);
+                this.estagiarioRepository.save(estagiarioModel);
             }
-            this.estagiarioRepository.saveAll(estagiario);
+
+            EmpresaModel empresa=vaga.getEmpresaModel();
+            if(empresa != null && empresa.getVagaModel() != null)
+            {
+                empresa.getVagaModel().removeIf(vagas -> vagas.getId().equals(vagas.getId()));
+                this.empresaRepository.save(empresa);
+
+            }
         }
 
         this.vagaRepository.deleteAll();

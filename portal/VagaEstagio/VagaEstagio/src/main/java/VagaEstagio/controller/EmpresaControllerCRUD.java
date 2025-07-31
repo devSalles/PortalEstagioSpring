@@ -56,6 +56,6 @@ public class EmpresaControllerCRUD {
     public ResponseEntity<Object> deleteAll()
     {
         this.empresaServiceCRUD.deleteAll();
-        return ResponseEntity.status(HttpStatus.OK).body("Todos os empregados foram excluídos");
+        return ResponseEntity.status(HttpStatus.OK).body("Todos as empresas foram excluídas");
     }
 }

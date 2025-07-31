@@ -14,7 +14,6 @@ import VagaEstagio.repository.VagaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EmpresaServiceCRUD {
@@ -106,6 +105,30 @@ public class EmpresaServiceCRUD {
     }
 
     public void deleteAll() {
+        List<EmpresaModel>empresa=this.empresaRepository.findAll();
+        if(empresa.isEmpty())
+        {
+            throw new EmptyListException();
+        }
+
+        for(EmpresaModel empresaModel:empresa)
+        {
+            List<VagaModel> vaga=empresaModel.getVagaModel();
+            if(vaga != null && !vaga.isEmpty())
+            {
+                for (VagaModel vagaModel:vaga)
+                {
+                    if(vagaModel.getEstagiarioModel() != null)
+                    {
+                        EstagiarioModel estagiarioModel = vagaModel.getEstagiarioModel();
+                        estagiarioModel.setVagaModel(null);
+                        this.estagiarioRepository.save(estagiarioModel);
+                    }
+                }
+                vaga.clear();
+            }
+            this.empresaRepository.save(empresaModel);
+        }
         this.empresaRepository.deleteAll();
     }
 }
