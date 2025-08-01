@@ -11,10 +11,9 @@ import VagaEstagio.model.VagaModel;
 import VagaEstagio.repository.EmpresaRepository;
 import VagaEstagio.repository.EstagiarioRepository;
 import VagaEstagio.repository.VagaRepository;
+import VagaEstagio.service.validator.VagaValidator;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -33,26 +32,8 @@ public class VagaServiceCRUD {
 
     public VagaModel addNew(VagaDTO vagaDTO) throws IllegalArgumentException
     {
-        if(vagaDTO.getDescricao() == null || vagaDTO.getDescricao().isBlank())
-        {
-            throw new IllegalArgumentException("Campo descrição inválido");
-        }
-
-        if(vagaDTO.getVaga() == null)
-        {
-            throw new IllegalArgumentException("Campo vaga inválido");
-        }
-
-        if(vagaDTO.getBolsa() == null )
-        {
-            throw new IllegalArgumentException("Campo bolsa inválido");
-        }
-
-        //Verifição de campo valor valido
-        if(vagaDTO.getBolsa().compareTo(BigDecimal.ZERO)<=0)
-        {
-            throw new IllegalArgumentException("Valor deve ser maior que 0");
-        }
+        //Metodo para validação de campos
+        VagaValidator.validatorCamps(vagaDTO);
 
         //Verificação de campo nulo ID de estagiário
         if(vagaDTO.getEstagiarioModel() == null || vagaDTO.getEstagiarioModel().getId() == null)
@@ -62,6 +43,7 @@ public class VagaServiceCRUD {
         //Procura de ID de estagiário
         EstagiarioModel estagiarioID=this.estagiarioRepository.findById(vagaDTO.getEstagiarioModel().getId()).orElseThrow(() -> new IdNotFoundException("ID de estagiario não encontrado"));
 
+        //Veirficação de duplicidade de ID de estagiário para mais de uma vaga
         if(vagaRepository.existsByEstagiarioModel_Id(estagiarioID.getId()))
         {
             throw new EstagiarioDuplicadoException();
@@ -89,21 +71,8 @@ public class VagaServiceCRUD {
     {
         VagaModel vagaID = this.vagaRepository.findById(id).orElseThrow(IdNotFoundException::new);
 
-        if(vagaDTO.getVaga() == null)
-        {
-            throw new IllegalArgumentException("Campo vaga inválido");
-        }
-
-        if(vagaDTO.getBolsa() == null )
-        {
-            throw new IllegalArgumentException("Campo bolsa inválido");
-        }
-
-        //Verifição de campo valor valido
-        if(vagaDTO.getBolsa().compareTo(BigDecimal.ZERO)<=0)
-        {
-            throw new IllegalArgumentException("Valor deve ser maior que 0");
-        }
+        //Metodo para validação de campos
+        VagaValidator.validatorCamps(vagaDTO);
 
         //Verifição de campo nulo de ID de estagiário
         if(vagaDTO.getEstagiarioModel() == null || vagaDTO.getEstagiarioModel().getId() == null)
@@ -140,7 +109,7 @@ public class VagaServiceCRUD {
 
     public VagaResponseDTO getById(Long id)
     {
-        VagaModel vaga =this.vagaRepository.findById(id).orElseThrow(() -> new IdNotFoundException());
+        VagaModel vaga =this.vagaRepository.findById(id).orElseThrow(IdNotFoundException::new);
         return VagaResponseDTO.fromVaga(vaga);
     }
 
@@ -193,7 +162,6 @@ public class VagaServiceCRUD {
 
             }
         }
-
         this.vagaRepository.deleteAll();
     }
 }

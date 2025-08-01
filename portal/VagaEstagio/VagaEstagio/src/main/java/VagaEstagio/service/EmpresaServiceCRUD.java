@@ -11,8 +11,8 @@ import VagaEstagio.model.VagaModel;
 import VagaEstagio.repository.EmpresaRepository;
 import VagaEstagio.repository.EstagiarioRepository;
 import VagaEstagio.repository.VagaRepository;
+import VagaEstagio.service.validator.EmpresaValidator;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -30,17 +30,8 @@ public class EmpresaServiceCRUD {
 
     public EmpresaModel addNew(EmpresaDTO empresaDTO) throws IllegalArgumentException
     {
-        if (empresaDTO.getNome() == null || empresaDTO.getNome().isBlank()) {
-            throw new IllegalArgumentException("Campo nome inválido");
-        }
-
-        if (empresaDTO.getArea() == null || empresaDTO.getArea().isBlank()) {
-            throw new IllegalArgumentException("Campo Área inválido");
-        }
-
-        if (empresaDTO.getCnpj() == null || empresaDTO.getCnpj().isBlank() || !empresaDTO.getCnpj().matches("^\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}$")) {
-            throw new IllegalArgumentException("Campo CNPJ inválido");
-        }
+        //Metodo para validação de campos
+        EmpresaValidator.validatorCamps(empresaDTO);
 
         if (empresaRepository.existsByCnpj(empresaDTO.getCnpj())) {
             throw new CnpjDuplicadoException();
@@ -55,13 +46,8 @@ public class EmpresaServiceCRUD {
     {
         EmpresaModel empresaID = this.empresaRepository.findById(id).orElseThrow(IdNotFoundException::new);
 
-        if (empresaDTO.getNome() == null || empresaDTO.getNome().isBlank()) {
-            throw new IllegalArgumentException("Campo nome inválido");
-        }
-
-        if (empresaDTO.getArea() == null || empresaDTO.getArea().isBlank()) {
-            throw new IllegalArgumentException("Campo Área inválido");
-        }
+        //Metodo para validação de campos
+        EmpresaValidator.updateValidatorCamps(empresaDTO);
 
         empresaDTO.updateEmpresa(empresaID);
         this.empresaRepository.save(empresaID);

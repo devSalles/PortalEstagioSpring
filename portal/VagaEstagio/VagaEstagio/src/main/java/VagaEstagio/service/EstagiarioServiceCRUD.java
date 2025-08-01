@@ -7,6 +7,7 @@ import VagaEstagio.dto.estagiario.EstagiarioResponseDTO;
 import VagaEstagio.model.EstagiarioModel;
 import VagaEstagio.model.VagaModel;
 import VagaEstagio.repository.EstagiarioRepository;
+import VagaEstagio.service.validator.EstagiarioValidator;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -21,20 +22,8 @@ public class EstagiarioServiceCRUD {
 
     public EstagiarioModel addNew(EstagiarioDTO estagiarioDTO) throws IllegalArgumentException
     {
-        if(estagiarioDTO.getNome()==null || estagiarioDTO.getNome().isBlank())
-        {
-            throw new IllegalArgumentException("Campo nome inválido");
-        }
-
-        if(estagiarioDTO.getCurso() == null || estagiarioDTO.getCurso().isBlank())
-        {
-            throw new IllegalArgumentException("Campo curso inválido");
-        }
-
-        if(estagiarioDTO.getPeriodo()<=0)
-        {
-            throw new IllegalArgumentException("Periodo inválido");
-        }
+        //Metodo para validação de campos
+        EstagiarioValidator.validatorCamps(estagiarioDTO);
 
         EstagiarioModel estagiarioSalvar=estagiarioDTO.toEstagio();
         this.estagiarioRepository.save(estagiarioSalvar);
@@ -45,20 +34,8 @@ public class EstagiarioServiceCRUD {
     {
         EstagiarioModel estagiarioID=this.estagiarioRepository.findById(id).orElseThrow(IdNotFoundException::new);
 
-        if(estagiarioDTO.getNome()==null || estagiarioDTO.getNome().isBlank())
-        {
-            throw new IllegalArgumentException("Campo nome inválido");
-        }
-
-        if(estagiarioDTO.getCurso() == null || estagiarioDTO.getCurso().isBlank())
-        {
-            throw new IllegalArgumentException("Campo curso inválido");
-        }
-
-        if(estagiarioDTO.getPeriodo()<=0)
-        {
-            throw new IllegalArgumentException("Periodo inválido");
-        }
+        //Metodo para validação de campos
+        EstagiarioValidator.validatorCamps(estagiarioDTO);
 
         estagiarioDTO.updateEstagio(estagiarioID);
         this.estagiarioRepository.save(estagiarioID);
