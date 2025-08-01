@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface VagaRepository extends JpaRepository<VagaModel,Long> {
+
+    boolean existsByEstagiarioModel_Id(Long id);
 }

@@ -2,6 +2,7 @@ package VagaEstagio.service;
 
 import VagaEstagio.core.exception.EmptyListException;
 import VagaEstagio.core.exception.IdNotFoundException;
+import VagaEstagio.core.exception.EstagiarioDuplicadoException;
 import VagaEstagio.dto.vaga.VagaDTO;
 import VagaEstagio.dto.vaga.VagaResponseDTO;
 import VagaEstagio.model.EmpresaModel;
@@ -61,6 +62,10 @@ public class VagaServiceCRUD {
         //Procura de ID de estagiário
         EstagiarioModel estagiarioID=this.estagiarioRepository.findById(vagaDTO.getEstagiarioModel().getId()).orElseThrow(() -> new IdNotFoundException("ID de estagiario não encontrado"));
 
+        if(vagaRepository.existsByEstagiarioModel_Id(estagiarioID.getId()))
+        {
+            throw new EstagiarioDuplicadoException();
+        }
 
         //Verificação de campo nulo ID de empresa
         if(vagaDTO.getEmpresaModel() == null || vagaDTO.getEmpresaModel().getId() == null)

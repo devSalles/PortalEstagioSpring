@@ -1,6 +1,6 @@
 package VagaEstagio.service;
 
-import VagaEstagio.core.exception.CnpjDuplicateException;
+import VagaEstagio.core.exception.CnpjDuplicadoException;
 import VagaEstagio.core.exception.EmptyListException;
 import VagaEstagio.core.exception.IdNotFoundException;
 import VagaEstagio.dto.empresa.EmpresaDTO;
@@ -43,7 +43,7 @@ public class EmpresaServiceCRUD {
         }
 
         if (empresaRepository.existsByCnpj(empresaDTO.getCnpj())) {
-            throw new CnpjDuplicateException();
+            throw new CnpjDuplicadoException();
         }
 
         EmpresaModel empresaModel = empresaDTO.toEmpresa();

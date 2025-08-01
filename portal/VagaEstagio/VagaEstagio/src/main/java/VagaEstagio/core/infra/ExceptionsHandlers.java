@@ -1,8 +1,9 @@
 package VagaEstagio.core.infra;
 
-import VagaEstagio.core.exception.CnpjDuplicateException;
+import VagaEstagio.core.exception.CnpjDuplicadoException;
 import VagaEstagio.core.exception.EmptyListException;
 import VagaEstagio.core.exception.IdNotFoundException;
+import VagaEstagio.core.exception.EstagiarioDuplicadoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -11,9 +12,16 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ExceptionsHandlers {
 
+    @ExceptionHandler(EstagiarioDuplicadoException.class)
+    public ResponseEntity<MessageRestError> vagaHandlerException(EstagiarioDuplicadoException ex)
+    {
+        MessageRestError messageRestError = new MessageRestError(HttpStatus.CONFLICT, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(messageRestError);
+    }
+
     //Exceção para CNPJ já cadastrado
-    @ExceptionHandler(CnpjDuplicateException.class)
-    public ResponseEntity<MessageRestError> cnpjHandlerException(CnpjDuplicateException ex)
+    @ExceptionHandler(CnpjDuplicadoException.class)
+    public ResponseEntity<MessageRestError> cnpjHandlerException(CnpjDuplicadoException ex)
     {
         MessageRestError messageRestError = new MessageRestError(HttpStatus.CONFLICT, ex.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(messageRestError);
