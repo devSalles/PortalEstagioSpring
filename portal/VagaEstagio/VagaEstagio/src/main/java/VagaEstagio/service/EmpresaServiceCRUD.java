@@ -28,7 +28,7 @@ public class EmpresaServiceCRUD {
         this.vagaRepository = vagaRepository;
     }
 
-    public EmpresaModel addNew(EmpresaDTO empresaDTO) throws IllegalArgumentException
+    public void addNew(EmpresaDTO empresaDTO) throws IllegalArgumentException
     {
         //Metodo para validação de campos
         EmpresaValidator.validatorCamps(empresaDTO);
@@ -40,7 +40,6 @@ public class EmpresaServiceCRUD {
 
         EmpresaModel empresaModel = empresaDTO.toEmpresa();
         this.empresaRepository.save(empresaModel);
-        return empresaModel;
     }
 
     public EmpresaModel updateById(Long id, EmpresaDTO empresaDTO)
