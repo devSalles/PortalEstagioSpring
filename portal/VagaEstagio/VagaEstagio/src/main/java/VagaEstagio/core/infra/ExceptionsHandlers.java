@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ExceptionsHandlers {
 
+    //Exceção para tentativa de cadastrar o estagiario em mais de uma vaga
     @ExceptionHandler(EstagiarioDuplicadoException.class)
     public ResponseEntity<MessageRestError> vagaHandlerException(EstagiarioDuplicadoException ex)
     {
@@ -27,7 +28,7 @@ public class ExceptionsHandlers {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(messageRestError);
     }
 
-    //Tratamento de exceções para validação de dados
+    //Tratamento de exceção para validações de dados
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<MessageRestError> illegalArgumentsHandlers(IllegalArgumentException ex)
     {
@@ -35,7 +36,7 @@ public class ExceptionsHandlers {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(messageRestError);
     }
 
-    //Tratamento de exceções para ID não encontrado
+    //Tratamento de exceção para ID não encontrado
     @ExceptionHandler(IdNotFoundException.class)
     public ResponseEntity<MessageRestError> IdNotFoundHandlerException(IdNotFoundException ex)
     {
@@ -43,14 +44,14 @@ public class ExceptionsHandlers {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(messageRestError);
     }
 
-    //Tratamento de exceções para nenhum registro cadastrado
+    //Tratamento de exceção para nenhum registro cadastrado
     @ExceptionHandler(EmptyListException.class)
     public ResponseEntity<MessageRestError> EmptyListHandlerException(EmptyListException ex)
     {
         MessageRestError messageRestError = new MessageRestError(HttpStatus.NOT_FOUND,ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(messageRestError);
     }
-    //Tratamento de exceções globais
+    //Tratamento de exceção globais
     @ExceptionHandler(Exception.class)
     public ResponseEntity<MessageRestError> globalHandlersException()
     {

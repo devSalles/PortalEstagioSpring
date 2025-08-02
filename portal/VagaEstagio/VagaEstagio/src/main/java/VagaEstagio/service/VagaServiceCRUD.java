@@ -57,7 +57,7 @@ public class VagaServiceCRUD {
         //Procura de ID de empresa
         EmpresaModel empresaID=this.empresaRepository.findById(vagaDTO.getEmpresaModel().getId()).orElseThrow(() -> new IdNotFoundException("ID de empresa não encontrado"));
 
-        //Settar os ID correspondentes
+        //Setar os ID correspondentes
         vagaDTO.setEstagiarioModel(estagiarioID);
         vagaDTO.setEmpresaModel(empresaID);
 
@@ -88,9 +88,11 @@ public class VagaServiceCRUD {
         }
         EmpresaModel empresaID = this.empresaRepository.findById(vagaDTO.getEmpresaModel().getId()).orElseThrow(() -> new IdNotFoundException("ID de empresa não encontrado"));
 
-        VagaModel vagaUpdate=vagaDTO.updateVaga(vagaID);
+        //Atualiza a DTO com o ID correspondente
         vagaDTO.setEmpresaModel(empresaID);
         vagaDTO.setEstagiarioModel(estagiarioID);
+
+        VagaModel vagaUpdate=vagaDTO.updateVaga(vagaID);
 
         this.vagaRepository.save(vagaUpdate);
         return  vagaUpdate;
@@ -121,45 +123,58 @@ public class VagaServiceCRUD {
         if(vagaModel.getEstagiarioModel()!= null)
         {
             EstagiarioModel estagiarioModel = vagaModel.getEstagiarioModel();
+
+            //Remove a referência da vaga no estagiário
             estagiarioModel.setVagaModel(null);
+
+            //Atualiza o estagiário no banco de dados para refletir a remoção do vínculo
             this.estagiarioRepository.save(estagiarioModel);
         }
 
         EmpresaModel empresa=vagaModel.getEmpresaModel();
         if(empresa != null && empresa.getVagaModel() != null)
         {
+            //Remove da lista de vagas da empresa a vaga que está sendo processada
             empresa.getVagaModel().removeIf(vaga -> vaga.getId().equals(id));
+
+            //Atualiza a empresa no banco de dados para refletir a remoção da vaga
             this.empresaRepository.save(empresa);
         }
-
         this.vagaRepository.delete(vagaModel);
         return true;
-
     }
 
     public void deleteAll()
     {
+        //Lista todas as vagas
         List<VagaModel>vagaDel=this.vagaRepository.findAll();
         if(vagaDel.isEmpty())
         {
             throw new EmptyListException();
         }
 
-        for(VagaModel vaga:vagaDel)
+        //Percorre cada vaga presente na lista vagaDel
+        for (VagaModel vaga : vagaDel)
         {
-            if(vaga.getEstagiarioModel() != null)
+            if (vaga.getEstagiarioModel() != null)
             {
-                EstagiarioModel estagiarioModel=vaga.getEstagiarioModel();
+                EstagiarioModel estagiarioModel = vaga.getEstagiarioModel();
+
+                //Remove a referência da vaga no estagiário
                 estagiarioModel.setVagaModel(null);
+
+                //Atualiza o estagiário no banco de dados para refletir a remoção do vínculo
                 this.estagiarioRepository.save(estagiarioModel);
             }
 
-            EmpresaModel empresa=vaga.getEmpresaModel();
-            if(empresa != null && empresa.getVagaModel() != null)
+            EmpresaModel empresa = vaga.getEmpresaModel();
+            if (empresa != null && empresa.getVagaModel() != null)
             {
-                empresa.getVagaModel().removeIf(vagas -> vagas.getId().equals(vagas.getId()));
-                this.empresaRepository.save(empresa);
+                //Remove da lista de vagas da empresa a vaga que está sendo processada
+                empresa.getVagaModel().removeIf(vagas -> vagas.getId().equals(vaga.getId()));
 
+                //Atualiza a empresa no banco de dados para refletir a remoção da vaga
+                this.empresaRepository.save(empresa);
             }
         }
         this.vagaRepository.deleteAll();

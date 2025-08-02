@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EmpresaRepository extends JpaRepository<EmpresaModel,Long> {
 
+    //Verificação de existência de CNPJ
     boolean existsByCnpj(String cnpj);
 
 }

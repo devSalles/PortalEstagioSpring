@@ -4,6 +4,7 @@ import VagaEstagio.dto.empresa.EmpresaDTO;
 
 public class EmpresaValidator {
 
+    //Metodo responsável por validar campos
     public static void validatorCamps(EmpresaDTO empresaDTO)
     {
         if (empresaDTO.getNome() == null || empresaDTO.getNome().isBlank()) {
@@ -20,6 +21,7 @@ public class EmpresaValidator {
         }
     }
 
+    //Metodo responsável por validar campos quando atualiza um registro
     public static void updateValidatorCamps(EmpresaDTO empresaDTO)
     {
         if (empresaDTO.getNome() == null || empresaDTO.getNome().isBlank()) {

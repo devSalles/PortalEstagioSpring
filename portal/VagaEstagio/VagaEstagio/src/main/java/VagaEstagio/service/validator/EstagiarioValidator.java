@@ -4,6 +4,7 @@ import VagaEstagio.dto.estagiario.EstagiarioDTO;
 
 public class EstagiarioValidator {
 
+    //Metodo responsável por validar campos
     public static void validatorCamps(EstagiarioDTO estagiarioDTO)
     {
         if(estagiarioDTO.getNome()==null || estagiarioDTO.getNome().isBlank())

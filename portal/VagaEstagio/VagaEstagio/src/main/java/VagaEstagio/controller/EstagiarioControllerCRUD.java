@@ -38,7 +38,7 @@ public class EstagiarioControllerCRUD {
     @GetMapping("/reportAll")
     public ResponseEntity<Object> getById()
     {
-        List<EstagiarioResponseDTO>estagiarioGetAll =this.estagiarioServiceCRUD.getAll();
+        List<EstagiarioResponseDTO>estagiarioGetAll=this.estagiarioServiceCRUD.getAll();
         return ResponseEntity.status(HttpStatus.OK).body(estagiarioGetAll);
     }
 

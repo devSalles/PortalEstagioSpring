@@ -22,6 +22,8 @@ public class EstagiarioDTO {
     @NotNull(message = "Periodo obrigatório")
     private int periodo;
 
+
+    // ---Metodos de abaixo de conversão---
     public EstagiarioModel toEstagio()
     {
         EstagiarioModel estagiarioModel = new EstagiarioModel();

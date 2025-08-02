@@ -8,6 +8,7 @@ public record EstagiarioResponseDTO(
         String curso,
         Integer periodo
 ){
+    //Metodo responsável por exibição de dados
     public static EstagiarioResponseDTO fromEstagiarioResponseDTO(EstagiarioModel model)
     {
         return new EstagiarioResponseDTO(model.getId(),model.getNome(), model.getCurso(), model.getPeriodo());

@@ -66,9 +66,11 @@ public class EstagiarioServiceCRUD {
         {
             VagaModel vaga=estagiarioID.getVagaModel();
 
+            //Setando null para exclusão
             estagiarioID.setVagaModel(null);
             vaga.setEstagiarioModel(null);
 
+            //Salva estagiario com FK null
             this.estagiarioRepository.save(estagiarioID);
         }
 

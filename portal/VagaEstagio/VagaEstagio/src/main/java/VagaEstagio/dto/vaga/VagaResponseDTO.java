@@ -16,6 +16,7 @@ public record VagaResponseDTO(
         EstagiarioResponseDTO estagiarioModel
 ) {
 
+    //Metodo responsável por exibição de dados
     public static VagaResponseDTO fromVaga(VagaModel vagaModel)
     {
         return new VagaResponseDTO(vagaModel.getId(), vagaModel.getDescricao(), vagaModel.getBolsa(), vagaModel.getVaga(),

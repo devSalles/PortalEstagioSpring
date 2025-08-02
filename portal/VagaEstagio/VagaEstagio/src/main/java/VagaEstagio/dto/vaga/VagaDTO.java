@@ -35,6 +35,7 @@ public class VagaDTO {
 
     private EstagiarioModel estagiarioModel;
 
+    // ---Metodos de abaixo de conversão---
 
     public VagaModel toVaga()
     {

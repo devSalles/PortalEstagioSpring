@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 
 public class VagaValidator {
 
+    //Metodo responsável por validar campos
     public static void validatorCamps(VagaDTO vagaDTO)
     {
         if(vagaDTO.getDescricao() == null || vagaDTO.getDescricao().isBlank())

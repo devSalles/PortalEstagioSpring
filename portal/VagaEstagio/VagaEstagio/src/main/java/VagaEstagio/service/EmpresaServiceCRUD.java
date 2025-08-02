@@ -33,6 +33,7 @@ public class EmpresaServiceCRUD {
         //Metodo para validação de campos
         EmpresaValidator.validatorCamps(empresaDTO);
 
+        //Verificação de existência de CNPJ
         if (empresaRepository.existsByCnpj(empresaDTO.getCnpj())) {
             throw new CnpjDuplicadoException();
         }
@@ -73,19 +74,22 @@ public class EmpresaServiceCRUD {
     {
         EmpresaModel empresaID = this.empresaRepository.findById(id).orElseThrow(IdNotFoundException::new);
 
-        if (empresaID.getVagaModel() != null || !empresaID.getVagaModel().isEmpty()) {
+        if (empresaID.getVagaModel() != null && !empresaID.getVagaModel().isEmpty()) {
+            //For para cada vaga
             for (VagaModel vaga : empresaID.getVagaModel()) {
                 EstagiarioModel estagiario = vaga.getEstagiarioModel();
 
                 if (estagiario != null)
                 {
+                    // Remove o vínculo entre o estagiário e a vaga (seta como null)
                     estagiario.setVagaModel(null);
+
                     this.estagiarioRepository.save(estagiario);
                 }
+                //Remove a vaga associada à empresa do banco de dados
                 this.vagaRepository.delete(vaga);
             }
         }
-
         this.empresaRepository.delete(empresaID);
         return true;
     }
@@ -97,22 +101,28 @@ public class EmpresaServiceCRUD {
             throw new EmptyListException();
         }
 
+        //For para cada empresa
         for(EmpresaModel empresaModel:empresa)
         {
+            //Lista todas as vagas associadas
             List<VagaModel> vaga=empresaModel.getVagaModel();
             if(vaga != null && !vaga.isEmpty())
             {
+                //For para cada vaga
                 for (VagaModel vagaModel:vaga)
                 {
                     if(vagaModel.getEstagiarioModel() != null)
                     {
+                        //Setando e salvando os valores de estagiário como null
                         EstagiarioModel estagiarioModel = vagaModel.getEstagiarioModel();
                         estagiarioModel.setVagaModel(null);
                         this.estagiarioRepository.save(estagiarioModel);
                     }
                 }
+                //Limpa todas as vagas associadas
                 vaga.clear();
             }
+            //Salva a empresa com vagas setadas como null
             this.empresaRepository.save(empresaModel);
         }
         this.empresaRepository.deleteAll();
