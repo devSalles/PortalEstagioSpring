@@ -1,6 +1,7 @@
 package VagaEstagio.service.validator;
 
 import VagaEstagio.dto.empresa.EmpresaDTO;
+import VagaEstagio.dto.empresa.EmpresaUpdateDTO;
 
 public class EmpresaValidator {
 
@@ -22,7 +23,7 @@ public class EmpresaValidator {
     }
 
     //Metodo responsável por validar campos quando atualiza um registro
-    public static void updateValidatorCamps(EmpresaDTO empresaDTO)
+    public static void updateValidatorCamps(EmpresaUpdateDTO empresaDTO)
     {
         if (empresaDTO.getNome() == null || empresaDTO.getNome().isBlank()) {
             throw new IllegalArgumentException("Campo nome inválido");

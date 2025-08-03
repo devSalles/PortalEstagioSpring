@@ -31,32 +31,32 @@ public class VagaDTO {
     @NotNull(message = "Nome obrigatório") @Enumerated(EnumType.STRING)
     private VagaStatus vaga;
 
-    private EmpresaModel empresaModel;
+    private Long empresaId;
 
-    private EstagiarioModel estagiarioModel;
+    private Long estagiarioId;
 
     // ---Metodos de abaixo de conversão---
 
-    public VagaModel toVaga()
+    public VagaModel toVaga(EmpresaModel empresaModel, EstagiarioModel estagiarioModel)
     {
         VagaModel vagaModel = new VagaModel();
 
         vagaModel.setDescricao(this.descricao);
         vagaModel.setBolsa(this.bolsa);
         vagaModel.setVaga(this.vaga);
-        vagaModel.setEmpresaModel(this.empresaModel);
-        vagaModel.setEstagiarioModel(this.estagiarioModel);
+        vagaModel.setEmpresaModel(empresaModel);
+        vagaModel.setEstagiarioModel(estagiarioModel);
 
         return vagaModel;
     }
 
-    public VagaModel updateVaga(VagaModel vagaModel)
+    public VagaModel updateVaga(VagaModel vagaModel, EmpresaModel empresaModel, EstagiarioModel estagiarioModel)
     {
         vagaModel.setDescricao(this.getDescricao());
         vagaModel.setBolsa(this.getBolsa());
         vagaModel.setVaga(this.getVaga());
-        vagaModel.setEmpresaModel(this.getEmpresaModel());
-        vagaModel.setEstagiarioModel(this.getEstagiarioModel());
+        vagaModel.setEmpresaModel(empresaModel);
+        vagaModel.setEstagiarioModel(estagiarioModel);
 
         return vagaModel;
     }

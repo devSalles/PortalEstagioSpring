@@ -5,6 +5,7 @@ import VagaEstagio.core.exception.EmptyListException;
 import VagaEstagio.core.exception.IdNotFoundException;
 import VagaEstagio.dto.empresa.EmpresaDTO;
 import VagaEstagio.dto.empresa.EmpresaResponseDTO;
+import VagaEstagio.dto.empresa.EmpresaUpdateDTO;
 import VagaEstagio.model.EmpresaModel;
 import VagaEstagio.model.EstagiarioModel;
 import VagaEstagio.model.VagaModel;
@@ -42,7 +43,7 @@ public class EmpresaServiceCRUD {
         this.empresaRepository.save(empresaModel);
     }
 
-    public EmpresaModel updateById(Long id, EmpresaDTO empresaDTO)
+    public EmpresaModel updateById(Long id, EmpresaUpdateDTO empresaDTO)
     {
         EmpresaModel empresaID = this.empresaRepository.findById(id).orElseThrow(IdNotFoundException::new);
 

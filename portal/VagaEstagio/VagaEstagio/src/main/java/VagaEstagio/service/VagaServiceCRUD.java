@@ -36,12 +36,12 @@ public class VagaServiceCRUD {
         VagaValidator.validatorCamps(vagaDTO);
 
         //Verificação de campo nulo ID de estagiário
-        if(vagaDTO.getEstagiarioModel() == null || vagaDTO.getEstagiarioModel().getId() == null)
+        if(vagaDTO.getEstagiarioId() == null )
         {
             throw new IllegalArgumentException("Campo ID de estagiario não pode ser nulo");
         }
         //Procura de ID de estagiário
-        EstagiarioModel estagiarioID=this.estagiarioRepository.findById(vagaDTO.getEstagiarioModel().getId()).orElseThrow(() -> new IdNotFoundException("ID de estagiario não encontrado"));
+        EstagiarioModel estagiarioID=this.estagiarioRepository.findById(vagaDTO.getEstagiarioId()).orElseThrow(() -> new IdNotFoundException("ID de estagiario não encontrado"));
 
         //Veirficação de duplicidade de ID de estagiário para mais de uma vaga
         if(vagaRepository.existsByEstagiarioModel_Id(estagiarioID.getId()))
@@ -50,19 +50,14 @@ public class VagaServiceCRUD {
         }
 
         //Verificação de campo nulo ID de empresa
-        if(vagaDTO.getEmpresaModel() == null || vagaDTO.getEmpresaModel().getId() == null)
+        if(vagaDTO.getEmpresaId() == null)
         {
             throw new IllegalArgumentException("Campo ID da empresa não pode ser nulo");
         }
         //Procura de ID de empresa
-        EmpresaModel empresaID=this.empresaRepository.findById(vagaDTO.getEmpresaModel().getId()).orElseThrow(() -> new IdNotFoundException("ID de empresa não encontrado"));
+        EmpresaModel empresaID=this.empresaRepository.findById(vagaDTO.getEmpresaId()).orElseThrow(() -> new IdNotFoundException("ID de empresa não encontrado"));
 
-        //Setar os ID correspondentes
-        vagaDTO.setEstagiarioModel(estagiarioID);
-        vagaDTO.setEmpresaModel(empresaID);
-
-        VagaModel vagaSave=vagaDTO.toVaga();
-
+        VagaModel vagaSave=vagaDTO.toVaga(empresaID, estagiarioID);
 
         return this.vagaRepository.save(vagaSave);
     }
@@ -75,24 +70,20 @@ public class VagaServiceCRUD {
         VagaValidator.validatorCamps(vagaDTO);
 
         //Verifição de campo nulo de ID de estagiário
-        if(vagaDTO.getEstagiarioModel() == null || vagaDTO.getEstagiarioModel().getId() == null)
+        if(vagaDTO.getEstagiarioId() == null)
         {
             throw new IllegalArgumentException("Campo ID de estagiario obrigatorio");
         }
-        EstagiarioModel estagiarioID = this.estagiarioRepository.findById(vagaDTO.getEstagiarioModel().getId()).orElseThrow(() -> new IdNotFoundException("ID de estagiario não encontrado"));
+        EstagiarioModel estagiarioID = this.estagiarioRepository.findById(vagaDTO.getEstagiarioId()).orElseThrow(() -> new IdNotFoundException("ID de estagiario não encontrado"));
 
         //Verifição de campo nulo de ID de empresa
-        if(vagaDTO.getEmpresaModel() == null || vagaDTO.getEmpresaModel().getId() == null)
+        if(vagaDTO.getEmpresaId() == null)
         {
             throw new IllegalArgumentException("Campo ID da empresa obrigatorio");
         }
-        EmpresaModel empresaID = this.empresaRepository.findById(vagaDTO.getEmpresaModel().getId()).orElseThrow(() -> new IdNotFoundException("ID de empresa não encontrado"));
+        EmpresaModel empresaID = this.empresaRepository.findById(vagaDTO.getEmpresaId()).orElseThrow(() -> new IdNotFoundException("ID de empresa não encontrado"));
 
-        //Atualiza a DTO com o ID correspondente
-        vagaDTO.setEmpresaModel(empresaID);
-        vagaDTO.setEstagiarioModel(estagiarioID);
-
-        VagaModel vagaUpdate=vagaDTO.updateVaga(vagaID);
+        VagaModel vagaUpdate=vagaDTO.updateVaga(vagaID, empresaID, estagiarioID);
 
         this.vagaRepository.save(vagaUpdate);
         return  vagaUpdate;

@@ -2,7 +2,7 @@ package VagaEstagio.controller;
 
 import VagaEstagio.dto.empresa.EmpresaDTO;
 import VagaEstagio.dto.empresa.EmpresaResponseDTO;
-import VagaEstagio.model.EmpresaModel;
+import VagaEstagio.dto.empresa.EmpresaUpdateDTO;
 import VagaEstagio.service.EmpresaServiceCRUD;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -28,10 +28,9 @@ public class EmpresaControllerCRUD {
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<Object> updateById(@PathVariable Long id, @RequestBody EmpresaDTO empresaDTO)
+    public ResponseEntity<Object> updateById(@PathVariable Long id, @RequestBody EmpresaUpdateDTO empresaDTO)
     {
-        EmpresaModel empresaAtualizada = this.empresaServiceCRUD.updateById(id,empresaDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(empresaAtualizada);
+        return ResponseEntity.status(HttpStatus.OK).body(this.empresaServiceCRUD.updateById(id,empresaDTO));
     }
 
     @GetMapping("/reportAll")
