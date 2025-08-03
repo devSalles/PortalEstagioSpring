@@ -1,5 +1,6 @@
 package VagaEstagio.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,5 +28,6 @@ public class EstagiarioModel {
     private int periodo;
 
     @OneToOne(mappedBy = "estagiarioModel")
+    @JsonBackReference
     private VagaModel vagaModel;
 }

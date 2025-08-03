@@ -86,7 +86,7 @@ public class VagaServiceCRUD {
         VagaModel vagaUpdate=vagaDTO.updateVaga(vagaID, empresaID, estagiarioID);
 
         this.vagaRepository.save(vagaUpdate);
-        return  vagaUpdate;
+        return vagaUpdate;
     }
 
     public List<VagaResponseDTO> getAll()

@@ -23,7 +23,7 @@ public class EmpresaDTO {
     @NotNull(message = "Área obrigatória")
     private String area;
 
-    // ---Metodos de abaixo de conversão---
+    // ---Metodo de abaixo de conversão---
 
     public EmpresaModel toEmpresa()
     {
